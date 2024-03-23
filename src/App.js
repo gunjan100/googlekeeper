@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Header from './Header'
+import Footer from './Footer'
+import Note from './Note'
+import CreateNote from './CreateNote'
 
-function App() {
+const App = () => {
+  const [addItem, setAddItem]=useState([]);
+  const AddNote=(note)=>{
+    setAddItem((prevData)=>{
+      return[
+        ...prevData,note
+      ]
+    })
+    
+
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <CreateNote passNote={AddNote}/>
+   
+      {
+        addItem.map((value,index)=>{
+          return(
+            <Note
+            key={index}
+            id={index}
+            title={value.title}
+            content={value.content}
+            />
+
+          );
+
+        }) }
+      <Footer/>
+    
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
